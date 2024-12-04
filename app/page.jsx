@@ -5,6 +5,7 @@ import { DndContext } from "@dnd-kit/core";
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useSpring, animated } from "@react-spring/web"; // Import react-spring
+import Image from "next/image";
 
 function Home() {
   const [pages, setPages] = useState([]);
@@ -23,7 +24,7 @@ function Home() {
 
   const handleSubmit = () => {
     const newPage = {
-      id: Date.now().toString(), // Unique ID for each page
+      id: Date.now().toString(), 
       title,
       desc,
       image: imageSrc,
@@ -45,7 +46,7 @@ function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Your form to create pages */}
+
       <div className="flex flex-col items-center gap-4 mb-6">
         <input
           type="text"
@@ -75,7 +76,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Drag and Drop Context */}
+
       <DndContext onDragEnd={handleDragEnd}>
         <SortableContext items={pages.map((page) => page.id)} strategy={verticalListSortingStrategy}>
           <div className="space-y-4">
@@ -92,15 +93,14 @@ function Home() {
 function Page({ page }) {
   const { attributes, listeners, setNodeRef } = useSortable({ id: page.id });
 
-  // Use react-spring to add animation effects
+
   const [style, api] = useSpring(() => ({ opacity: 1, transform: 'scale(1)' }));
 
   const handleDragStart = () => {
-    api.start({ opacity: 0.5, transform: 'scale(1.05)' }); // On drag start, animate the page
-  };
+    api.start({ opacity: 0.5, transform: 'scale(1.05)' }); 
 
   const handleDragEnd = () => {
-    api.start({ opacity: 1, transform: 'scale(1)' }); // On drag end, reset the animation
+    api.start({ opacity: 1, transform: 'scale(1)' });
   };
 
   return (
@@ -115,10 +115,11 @@ function Page({ page }) {
     >
       <h2 className="text-xl font-semibold">{page.title}</h2>
       <p>{page.desc}</p>
-      {page.image && <img src={page.image} alt="Uploaded" className="mt-4" />}
+      {page.image && <Image src={page.image} alt="Uploaded" className="mt-4" />}
       <p>Page ID: {page.id}</p>
     </animated.div>
   );
+}
 }
 
 export default Home;

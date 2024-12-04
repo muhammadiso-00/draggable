@@ -1,12 +1,13 @@
 import React from 'react'
 import {X} from "lucide-react"
+import Image from 'next/image'
 const NewPage = ({image,title,desc}) => {
   return (
     <div className="flex h-[100vh] w-[100vw] justify-center items-center box-border">
       <div className="site gap-4 w-[95vw] h-[90vh] shadow-2xl rounded-lg border-2 border-gray-400 p-5 flex ">
        
           <div className="relative inline w-1/2">
-            <img
+            <Image
               src={image}
               alt="Uploaded"
               className=" h-full object-cover rounded-xl"
